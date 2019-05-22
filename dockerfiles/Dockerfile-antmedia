@@ -7,8 +7,10 @@ RUN mkdir /opt/antmedia
 
 RUN cd /opt/antmedia && wget https://raw.githubusercontent.com/ant-media/Scripts/master/install_ant-media-server.sh && chmod 755 install_ant-media-server.sh && wget https://github.com/ant-media/Ant-Media-Server/releases/download/ams-v1.7.0/ant-media-server-1.7.0-community-1.7.0-20190519_1506.zip
 
-RUN cd /opt/antmedia && ./install_ant-media-server.sh ant-media-server*.zip true
+RUN cd /opt/antmedia && ./install_ant-media-server.sh ant-media-server*.zip 
 
-WORKDIR /opt
+EXPOSE 1935 5080 5443 5554
 
-RUN ["/bin/bash"]
+WORKDIR /usr/local/antmedia
+
+CMD cd /usr/local/antmedia && ./start.sh | tee /opt/start.log
